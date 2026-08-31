@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rahul | Portfolio</title>
+  <meta name="description" content="3D interactive portfolio by Rahul showcasing App Development, software projects, skills, education, certifications, and interactive experiences." />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta name="author" content="Rahul" />
+  <meta name="theme-color" content="#030812" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="keywords" content="Rahul, portfolio, 3D portfolio, interactive portfolio, app developer, Three.js, GSAP, app developer, Delhi" />
+  <link rel="canonical" href="https://github.com/vishwas0229" />
+  <link rel="icon" type="image/x-icon" href="./favicon.ico" />
+  <link rel="shortcut icon" href="./favicon.ico" />
+  <link rel="manifest" href="./site.webmanifest" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+  <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+  <link rel="dns-prefetch" href="//cdnjs.cloudflare.com" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="./assets/css/main.css" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Rahul | Interactive Portfolio" />
+  <meta property="og:description" content="Explore Rahul’s interactive 3D portfolio showcasing App Development, projects, skills, education, certifications, and practical development work." />
+  <meta property="og:url" content="https://github.com/vishwas0229" />
+  <meta property="og:site_name" content="Rahul Portfolio" />
+  <meta property="og:locale" content="en_IN" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Rahul | Interactive Portfolio" />
+  <meta name="twitter:description" content="Interactive 3D portfolio built with Three.js and GSAP, featuring Rahul’s App Development journey, projects, skills, education, and certifications." />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "name": "Rahul",
+        "url": "https://github.com/vishwas0229",
+        "email": "mailto:852006rahul@gmail.com",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Delhi",
+          "addressCountry": "IN"
+        },
+        "jobTitle": "Aspiring App Developer",
+        "knowsAbout": ["HTML", "CSS", "JavaScript", "Three.js", "GSAP", "Interactive Web Development"]
+      },
+      {
+        "@type": "WebSite",
+        "name": "Rahul Portfolio",
+        "url": "https://github.com/vishwas0229",
+        "description": "Interactive 3D portfolio showcasing projects, resume details, and frontend development work."
+      },
+      {
+        "@type": "WebPage",
+        "name": "Rahul | Interactive Portfolio",
+        "url": "https://github.com/vishwas0229",
+        "description": "Immersive 3D portfolio with resume highlights, interactive objects, mini-games, and project showcases.",
+        "isPartOf": {
+          "@type": "WebSite",
+          "name": "Rahul Portfolio",
+          "url": "https://github.com/vishwas0229"
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+<form name="portfolio-feedback" method="POST" data-netlify="true" netlify-honeypot="bot-field" hidden action="/">
+      <input type="hidden" name="form-name" value="portfolio-feedback" />
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <textarea name="message"></textarea>
+      <input type="text" name="page" />
+      <input type="text" name="createdAt" />
+      <input type="text" name="bot-field" />
+    </form>
+
+  <div id="app">
+    <canvas class="webgl" aria-label="Interactive 3D portfolio scene"></canvas>
+    <div class="noise"></div>
+    <div class="vignette"></div>
+    <div class="globe-screen-blur" id="globeScreenBlur"></div>
+    <div class="scanline"></div>
+
+    <div class="loader" id="loader" role="status" aria-live="polite" aria-label="Building portfolio">
+      <div class="loader-box minimal-loader-box">
+        <div class="morph-loader" aria-hidden="true">
+          <span class="morph-loader-core"></span>
+        </div>
+        <div class="loader-copy">
+          <strong>Building Portfolio</strong>
+        </div>
+      </div>
+    </div>
+    <div class="error-box" id="errorBox">
+      <div>
+        <h2>3D libraries did not load</h2>
+        <p>Please make sure your device has internet access because this file loads Three.js and GSAP from CDN. Then refresh the page.</p>
+      </div>
+    </div>
+
+    <section class="screen" id="introScreen" aria-label="Portfolio intro">
+      <div class="intro-card">
+        <div class="intro-content">
+          <div class="eyebrow"><span class="dot"></span> Welcome to Rahul’s Interactive Portfolio</div>
+          <div class="intro-mobile-roleline" aria-label="Profile summary">
+            <span>Aspiring App Developer</span>
+            <span>Delhi, India</span>
+          </div>
+          <h1 class="intro-title">Hi, I am <span>Rahul</span></h1>
+          <p class="intro-subtitle">
+            <span class="copy-desktop">This isn’t a typical portfolio, it’s built to be experienced. Explore Rahul’s App Development journey, GitHub projects, skills, education, and certifications through an interactive 3D desk experience. For the best experience, view it on desktop.</span>
+            <span class="copy-mobile">An immersive 3D portfolio focused on App Development, interactive navigation, and smooth camera motions.
+Get best experience on desktop.</span>
+          </p>
+          <button class="primary-btn" id="beginBtn" type="button" aria-label="Begin portfolio experience">
+            <span>Start Exploring</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+          <div class="intro-feature-grid" aria-label="Portfolio highlights">
+            <div class="intro-feature-card">
+              <span class="intro-feature-index">Explore</span>
+              <strong>Explore the Desk</strong>
+              <p>
+                <span class="copy-desktop">Interactive objects, hidden details, and smooth camera transitions across the desk environment.</span>
+                <span class="copy-mobile">Move through the desk setup with interactive objects and guided transitions.</span>
+              </p>
+            </div>
+            <div class="intro-feature-card">
+              <span class="intro-feature-index">Simple View</span>
+              <strong>Resume & Projects</strong>
+              <p>
+                <span class="copy-desktop">A distraction-free resume and project browsing experience for quick review.</span>
+                <span class="copy-mobile">Open a clean, professional view of my resume without any distraction</span>
+              </p>
+            </div>
+            <div class="intro-feature-card">
+              <span class="intro-feature-index">Interactive Extras</span>
+              <strong>Games, Feedback & Motion</strong>
+              <p>
+                <span class="copy-desktop">Mini-games, feedback support, object animations, and experimental portfolio features.</span>
+                <span class="copy-mobile">See the playful side through mini-games, feedback, and motion details.</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="hud" id="hud">
+      <div class="hud-top">
+        <div class="brand-chip">Rahul</div>
+        <div class="hint-chip" id="hintChip" aria-hidden="true"></div>
+        <div class="hud-ui-controls">
+          <div class="hud-social-links" aria-label="Social links">
+            <a class="hud-social-icon" href="https://github.com/vishwas0229" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a class="hud-social-icon" href="https://www.instagram.com/vishwas_._29/" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a class="hud-social-icon" href="https://linkedin.com/in/vishwas29/" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a class="hud-social-icon" href="https://x.com/vishwas_29" target="_blank" rel="noopener" aria-label="X" title="X"><i class="fa-brands fa-x-twitter"></i></a>
+          </div>
+          <button class="ui-visibility-toggle" id="uiVisibilityToggle" type="button" aria-pressed="true" aria-label="Toggle interactive object labels">
+            <span class="ui-toggle-light" aria-hidden="true"></span>
+            <span class="ui-toggle-label">UI Visibility</span>
+            <span class="ui-toggle-state">UI</span>
+          </button>
+        </div>
+      </div>
+      <div class="hud-actions">
+        <button class="glass-btn" id="simpleViewBtn" type="button">Simple View</button>
+        <button class="glass-btn github-btn" id="snakeViewBtn" type="button">GitHub</button>
+        <button class="glass-btn leetcode-btn" id="leetcodeViewBtn" type="button">LeetCode</button>
+        <button class="glass-btn" id="restartBtn" type="button">Restart</button>
+      </div>
+    </div>
+
+    <div class="click-layer">
+      <button class="click-target file-target" id="fileTarget" type="button" aria-label="Open portfolio file">
+        <span class="target-label">Open File</span>
+      </button>
+
+      <button class="click-target controller-target" id="controllerTarget" type="button" aria-label="Open retro handheld Tic-Tac-Toe game">
+        <span class="target-label">Open Gamepad</span>
+      </button>
+
+      <button class="click-target pen-target" id="penTarget" type="button" aria-label="Open feedback box">
+        <span class="target-label">Feedback</span>
+      </button>
+
+      <button class="click-target globe-target" id="globeTarget" type="button" aria-label="View globe">
+        <span class="target-label">View Globe</span>
+      </button>
+    </div>
+    <button class="mobile-swipe-arrow" id="mobileSwipeArrow" type="button" aria-label="Move right">&#8594;</button>
+    <div class="mobile-nav-arrows" id="mobileNavArrows" aria-label="Desk navigation">
+      <button class="mobile-nav-arrow mobile-nav-left" id="mobileNavLeft" type="button" aria-label="Move left">&#8592;</button>
+      <button class="mobile-nav-arrow mobile-nav-right" id="mobileNavRight" type="button" aria-label="Move right">&#8594;</button>
+    </div>
+    <button class="goodday-trigger" id="goodDayArrow" type="button" aria-label="Open have a good day card">&#8595;</button>
+
+    <section class="modal" id="goodDayModal" aria-hidden="true">
+      <div class="goodday-panel">
+        <div class="modal-top">
+          <div class="modal-title">
+            <strong>Final Note</strong>
+            <span>A warm closing message from this portfolio experience.</span>
+          </div>
+          <button class="close-btn-main" id="closeGoodDayBtn" type="button" aria-label="Close have a good day card">&times;</button>
+        </div>
+        <div class="goodday-body">
+          <div class="goodday-emoji" aria-hidden="true">&#10022;</div>
+          <h3 class="goodday-title" tabindex="0">Thanks for Exploring</h3>
+          <p class="goodday-subtitle">This project is still evolving, and I'm continuously improving it as I learn and experiment. Have a great day.</p>
+          <div class="goodday-actions">
+            <button class="glass-btn primary" id="closeGoodDayAction" type="button">Continue</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="modal" id="feedbackModal" aria-hidden="true">
+      <div class="feedback-panel" role="dialog" aria-modal="true" aria-labelledby="feedbackTitle">
+        <div class="feedback-topbar">
+          <div class="feedback-title-wrap">
+            <div>
+              <h3 id="feedbackTitle">Feedback</h3>
+              <p>Share your thoughts, suggestions, or anything I can improve.</p>
+            </div>
+          </div>
+          <button class="feedback-close" id="closeFeedbackBtn" type="button" aria-label="Close feedback box">&times;</button>
+        </div>
+
+        <form class="feedback-form" id="feedbackForm" name="portfolio-feedback" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/">
+          <input type="hidden" id="feedbackFormName" name="form-name" value="portfolio-feedback" />
+          <p hidden><label>Do not fill this out: <input name="bot-field" /></label></p>
+          <div class="feedback-chat-area" aria-live="polite">
+            <div class="feedback-message assistant-message">
+              <span class="feedback-avatar">SR</span>
+              <div class="feedback-bubble">Hi! Share what you liked, what felt confusing, or what I should improve next.</div>
+            </div>
+          </div>
+
+          <label class="feedback-field-label" for="feedbackName">Name <span>(required)</span></label>
+          <input class="feedback-input" id="feedbackName" name="name" type="text" maxlength="70" placeholder="Your name" autocomplete="name" required />
+
+          <label class="feedback-field-label" for="feedbackEmail">Email <span>(required)</span></label>
+          <input class="feedback-input" id="feedbackEmail" name="email" type="email" maxlength="160" placeholder="you@example.com" autocomplete="email" required />
+
+          <label class="feedback-field-label" for="feedbackText">Feedback</label>
+          <div class="feedback-composer">
+            <textarea id="feedbackText" name="message" rows="5" maxlength="1400" placeholder="Write your feedback here..." required></textarea>
+            <button class="feedback-send" id="saveFeedbackBtn" type="submit" aria-label="Save feedback">
+              <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
+            </button>
+          </div>
+<input type="hidden" id="feedbackPage" name="page" value="" />
+          <input type="hidden" id="feedbackCreatedAt" name="createdAt" value="" />
+          <p class="feedback-status" id="feedbackStatus" role="status"></p>
+          <p id="feedbackFolderHint" hidden aria-hidden="true"></p>
+          <button id="chooseFeedbackFolderBtn" type="button" hidden aria-hidden="true"></button>
+        </form>
+      </div>
+    </section>
+
+    <section class="modal" id="portfolioModal" aria-hidden="true">
+      <div class="portfolio-panel">
+        <div class="modal-top">
+          <div class="modal-title">
+            <strong>Portfolio File</strong>
+
+          </div>
+          <button class="close-btn-main" id="closePortfolioBtn" type="button" aria-label="Close portfolio">&times;</button>
+        </div>
+
+        <div class="book-area">
+          <div class="book-shell">
+            <div class="book-spread" id="bookSpread">
+              <article class="page" id="resumeBookPage">
+                <div class="page-inner">
+                  <div class="page-label">Page 01 / Resume</div>
+
+                  <div class="resume-hero">
+                    <div class="resume-profile-photo"><img src="./assets/images/profile.jpg" alt="Rahul profile photo"></div>
+                    <h2>Rahul</h2>
+                    <p>Computer Science student passionate about software development, Data Structures &amp; Algorithms, Cyber Security, Artificial Intelligence, and application development. I enjoy learning by building practical projects and exploring modern technologies.</p>
+                    <div class="resume-pills">
+                      <span class="resume-pill">BCA 2025&ndash;Present</span>
+                      <span class="resume-pill">Delhi, India</span>
+                      <span class="resume-pill">Aspiring App Developer</span>
+                    </div>
+                  </div>
+
+                  <section class="section-card portfolio-contact-card">
+                    <div class="section-title"><span class="icon"><i class="fa-solid fa-address-card"></i></span> Contacts</div>
+                    <div class="contact-private-content">
+                      <div class="info-grid">
+                        <div class="info-tile"><strong>Mobile</strong><span>+91 987****331</span></div>
+                        <div class="info-tile"><strong>Email</strong><span><a href="mailto:852006rahul@gmail.com">85*********ul@gmail.com</a></span></div>
+                        <div class="info-tile"><strong>Location</strong><span>Delhi, India</span></div>
+                        <div class="info-tile"><strong>GitHub</strong><span><a href="https://github.com/vishwas0229" target="_blank" rel="noopener">github.com/vishwas0229</a></span></div>
+                        <div class="info-tile"><strong>LinkedIn</strong><span><a href="https://linkedin.com/in/vishwas29/" target="_blank" rel="noopener">linkedin.com/in/vishwas29</a></span></div>
+                        <div class="info-tile"><strong>Instagram</strong><span><a href="https://www.instagram.com/vishwas_._29/" target="_blank" rel="noopener">instagram.com/vishwas_._29</a></span></div>
+                        <div class="info-tile"><strong>X</strong><span><a href="https://x.com/vishwas_29" target="_blank" rel="noopener">x.com/vishwas_29</a></span></div>
+                      </div>
+                    </div>
+                  </section>
+
+                  <section class="section-card">
+                    <div class="section-title"><span class="icon"><i class="fa-solid fa-user"></i></span> About Me</div>
+                    <p>Computer Science student focused on software development, DSA, Cyber Security, AI/ML, and application development. My GitHub work includes DSA practice in C, a PHP/MySQL e-commerce application, and an employee self-service portal. I learn by building practical projects and continuously improving my development skills.</p>
+                  </section>
+
+                  <section class="section-card">
+                    <div class="section-title"><span class="icon"><i class="fa-solid fa-bullseye"></i></span> Career Objective</div>
+                    <p>To build a career as an App Developer by creating practical, user-focused mobile applications, strengthening programming and problem-solving skills, and continuously learning modern application development technologies, especially React Native.</p>
+                  </section>
+
+                  <section class="section-card">
+                    <div class="section-title"><span class="icon"><i class="fa-solid fa-wrench"></i></span> Skills</div>
+                    <div class="book-skills bar-skills">
+                      <div class="skill-bar-row" aria-label="C and C++">
+                        <div class="skill-bar-head"><span class="skill-name">C / C++</span><span class="skill-level">Core</span></div>
+                        <div class="skill-bar"><span style="--level: 78%;"></span></div>
+                      </div>
+                      <div class="skill-bar-row" aria-label="Python">
+                        <div class="skill-bar-head"><span class="skill-name">Python</span><span class="skill-level">Core</span></div>
+                        <div class="skill-bar"><span style="--level: 72%;"></span></div>
+                      </div>
+                      <div class="skill-bar-row" aria-label="React Native App Development">
+                        <div class="skill-bar-head"><span class="skill-name">React Native / App Development</span><span class="skill-level">Focus</span></div>
+                        <div class="skill-bar"><span style="--level: 68%;"></span></div>
+                      </div>
+                      <div class="skill-bar-row" aria-label="Web Development">
+                        <div class="skill-bar-head"><span class="skill-name">HTML, CSS, JavaScript</span><span class="skill-level">Web</span></div>
+                        <div class="skill-bar"><span style="--level: 70%;"></span></div>
+                      </div>
+                      <div class="skill-bar-row" aria-label="Backend and Database">
+                        <div class="skill-bar-head"><span class="skill-name">PHP / MySQL</span><span class="skill-level">Backend</span></div>
+                        <div class="skill-bar"><span style="--level: 65%;"></span></div>
+                      </div>
+                      <div class="skill-bar-row" aria-label="Three.js and GSAP">
+                        <div class="skill-bar-head"><span class="skill-name">Three.js / GSAP</span><span class="skill-level">Interactive</span></div>
+                        <div class="skill-bar"><span style="--level: 60%;"></span></div>
+                      </div>
+                    </div>
+                    <div class="project-meta" style="margin-top:12px;"><span>Bootstrap</span><span>Git</span><span>GitHub</span><span>Linux</span></div>
+                  </section>
+
+                  <section class="section-card">
+                    <div class="section-title"><span class="icon"><i class="fa-solid fa-graduation-cap"></i></span> Education</div>
+                    <div class="timeline-item">
+                      <h4>Bachelor of Computer Applications (BCA) <span class="mini-tag">2025 &ndash; Present</span></h4>
+                      <p>Guru Gobind Singh Indraprastha University (GGSIPU), Delhi<br><strong>Institute:</strong> Sirifort Institute of Management Studies (SIMS)</p>
+                    </div>
+                    <div class="timeline-item">
+                      <h4>Senior School Certificate (Class 12) <span class="mini-tag">2024</span></h4>
+                      <p>CBSE &ndash; Govt Boys Sr Secondary School, Aya Nagar, New Delhi</p>
+                    </div>
+                    <div class="timeline-item">
+                      <h4>Secondary School Certificate (Class 10) <span class="mini-tag">2022</span></h4>
+                      <p>CBSE &ndash; Govt Boys Sr Secondary School, Aya Nagar, New Delhi</p>
+                    </div>
+                  </section>
+
+                  <section class="section-card">
+                    <div class="section-title"><span class="icon"><i class="fa-solid fa-briefcase"></i></span> Job Preference</div>
+                    <p>App Development, Mobile Application Development, React Native, and Software Development.</p>
+                  </section>
+
+                  <section class="section-card">
+                    <div class="section-title"><span class="icon"><i class="fa-solid fa-heart"></i></span> Interests</div>
+                    <ul class="compact-list">
+                      <li>App Development</li>
+                      <li>Data Structures &amp; Algorithms</li>
+                      <li>Cyber Security</li>
+                      <li>Artificial Intelligence &amp; Machine Learning</li>
+                      <li>Software Development</li>
+                      <li>Open Source &amp; DSA Problem Solving</li>
+                    </ul>
+                  </section>
+
+                  <section class="section-card">
+                    <div class="section-title"><span class="icon"><i class="fa-solid fa-file-signature"></i></span> Declaration</div>
+                    <p>I confirm that the information presented in this portfolio is based on my profile, projects, education, and certifications.</p>
+                    <p><strong>Rahul</strong></p>
+                  </section>
+                </div>
+              </article>
+
+              <article class="page" id="projectsBookPage">
+                <div class="page-inner">
+                  <div class="page-label">Page 02 / Projects</div>
+
+                  <section class="section-card">
+                    <div class="section-title"><span class="icon"><i class="fa-solid fa-code-branch"></i></span> GitHub Projects</div>
+                    <div class="project-grid">
+                      <div class="project-card">
+                        <h4>DSA Problems</h4>
+                        <ul>
+                          <li>C programming practice covering arrays, sorting/searching, singly/circular/doubly linked lists, stacks, and student record management.</li>
+                          <li>Includes hands-on implementations of insertion, deletion, traversal, sorting, searching, linked-list partitioning, and stack operations.</li>
+                          <li><strong>Tech:</strong> C, Data Structures &amp; Algorithms</li>
+                        </ul>
+                        <div class="project-meta"><span>C</span><span>DSA</span><span>Linked Lists</span><span>Stacks</span><span>GitHub</span></div>
+                        <p class="project-links"><a href="https://github.com/vishwas0229/DSA_Problems" target="_blank" rel="noopener">View on GitHub</a></p>
+                      </div>
+
+                      <div class="project-card">
+                        <h4>Riya Collections</h4>
+                        <ul>
+                          <li>E-commerce application with a PHP backend and integrated frontend.</li>
+                          <li>Includes JWT authentication, Razorpay payment integration, product image management, admin dashboard, email notifications, and order-status updates.</li>
+                          <li><strong>Tech:</strong> PHP, MySQL, JavaScript, HTML, CSS, Composer</li>
+                        </ul>
+                        <div class="project-meta"><span>PHP</span><span>MySQL</span><span>JWT</span><span>Razorpay</span><span>E-commerce</span></div>
+                        <p class="project-links"><a href="https://github.com/vishwas0229/Riya-Coliections" target="_blank" rel="noopener">View on GitHub</a></p>
+                      </div>
+
+                      <div class="project-card">
+                        <h4>e-Karamchari</h4>
+                        <ul>
+                          <li>Employee Self-Service / HR management portal for employee and admin workflows.</li>
+                          <li>Includes leave management, grievances, attendance, salary slips, 2FA, reports, and an AI assistant/chatbot.</li>
+                          <li><strong>Tech:</strong> HTML, CSS, JavaScript, PHP, MySQL, Apache</li>
+                        </ul>
+                        <div class="project-meta"><span>PHP</span><span>MySQL</span><span>JavaScript</span><span>2FA</span><span>HR Portal</span></div>
+                        <p class="project-links"><a href="https://github.com/vishwas0229/e-Karamchari" target="_blank" rel="noopener">GitHub</a> &nbsp;•&nbsp; <a href="https://ekaramchari.netlify.app/" target="_blank" rel="noopener">Live Demo</a></p>
+                      </div>
+
+                      <div class="project-card">
+                        <h4>Portfolio</h4>
+                        <ul>
+                          <li>Interactive 3D portfolio website with animated navigation and a responsive Simple View.</li>
+                          <li>Built to showcase projects, education, skills, certifications, and developer links in an interactive experience.</li>
+                          <li><strong>Tech:</strong> HTML, CSS, JavaScript, Three.js, GSAP</li>
+                        </ul>
+                        <div class="project-meta"><span>Three.js</span><span>GSAP</span><span>JavaScript</span><span>3D UI</span></div>
+                        <p class="project-links"><a href="https://github.com/vishwas0229/portfolio" target="_blank" rel="noopener">GitHub</a> &nbsp;•&nbsp; <a href="https://rahulport-folio.netlify.app/" target="_blank" rel="noopener">Live Demo</a></p>
+                      </div>
+                    </div>
+                  </section>
+
+                  <section class="section-card">
+                    <div class="section-title"><span class="icon"><i class="fa-solid fa-certificate"></i></span> Certifications &amp; Training</div>
+                    <ul class="cert-list">
+                      <li><strong>Diploma in Computer Applications</strong><span class="cert-desc">Certification · Delhi Institute of Computer Education, New Delhi · CGPA: 9.857</span></li>
+                      <li><strong>5-Day AI Agents Intensive Course with Google</strong><span class="cert-desc">Kaggle &times; Google AI Agents intensive course / badge.</span></li>
+                      <li><strong>React Native Course &ndash; Tutedude</strong><span class="cert-desc">Successfully completed the React Native course on 9 June 2026.</span></li>
+                      <li><strong>Cyber Security Course &ndash; WsCube Tech</strong><span class="cert-desc">Completed Cyber Security training.</span></li>
+                      <li><strong>Data Analytics using Power BI &ndash; Sirifort Institute of Management Studies</strong><span class="cert-desc">2-week (40-hour) vocational training; certificate awarded for 94 marks.</span></li>
+                      <li><strong>SnapAR Hands-on Augmented Reality Lens Creation Workshop</strong><span class="cert-desc">Lens Studio workshop organized by Arexa &amp; Bharat XR, powered by Snap AR, October 2025.</span></li>
+                      <li><strong>Hack4Delhi &ndash; Unstop Holiday Fest 2025</strong><span class="cert-desc">Participation certificate; organized by Netaji Subhas University of Technology (NSUT), Delhi.</span></li>
+                    </ul>
+                  </section>
+
+                  <section class="section-card">
+                    <div class="section-title"><span class="icon"><i class="fa-solid fa-star"></i></span> Why this 3D Portfolio?</div>
+                    <ul>
+                      <li>Designed to present Rahul’s App Development journey through an interactive 3D experience instead of a static resume.</li>
+                      <li>Combines resume information, GitHub projects, skills, education, and certifications in one navigable interface.</li>
+                      <li>Keeps a Simple View for quick review while retaining the original interactive desk experience.</li>
+                      <li>Built to evolve as new projects, certifications, and professional links are added.</li>
+                    </ul>
+                  </section>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <div class="mobile-page-nav">
+            <button class="nav-btn" id="prevPageBtn" type="button" aria-label="Previous page">&#8249;</button>
+            <div class="page-dots" id="pageDots" aria-label="Page indicators">
+              <button class="page-dot active" data-page="0" type="button" aria-label="Go to resume page"></button>
+              <button class="page-dot" data-page="1" type="button" aria-label="Go to projects page"></button>
+            </div>
+            <div class="page-counter" id="pageCounter">1 / 2</div>
+            <button class="nav-btn" id="nextPageBtn" type="button" aria-label="Next page">&#8250;</button>
+          </div>
+          <div class="desktop-note"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="modal" id="simpleViewModal" aria-hidden="true">
+      <div class="simple-panel">
+        <div class="modal-top">
+          <div class="modal-title">
+            <strong>Simple View</strong>
+          </div>
+          <button class="close-btn-main" id="closeSimpleViewBtn" type="button" aria-label="Close simple view">&times;</button>
+        </div>
+        <iframe class="simple-frame" id="simpleFrame" title="Simple resume view"></iframe>
+      </div>
+    </section>
+
+    <section class="modal" id="snakeModal" aria-hidden="true">
+      <div class="simple-panel project-showcase-panel">
+        <div class="modal-top dashboard-modal-top">
+          <div class="modal-title"><strong>GitHub</strong><span>Live GitHub progress, contributions, and projects</span></div>
+          <div class="dashboard-header-actions">
+            <button class="mini-action" id="githubRefreshBtn" type="button">Refresh</button>
+            <a class="mini-action" href="https://github.com/vishwas0229" target="_blank" rel="noopener">Open GitHub</a>
+            <button class="close-btn-main" id="closeSnakeBtn" type="button" aria-label="Close GitHub">&times;</button>
+          </div>
+        </div>
+        <section class="github-dashboard" aria-label="Live GitHub dashboard">
+          <div class="github-dashboard-head">
+            <div><strong>GitHub Progress</strong><span id="githubStatus">Loading live GitHub data…</span></div>
+            
+          </div>
+          <div class="github-stats-grid">
+            <div class="github-stat"><span>Repositories</span><strong id="ghRepos">—</strong></div>
+            <div class="github-stat"><span>Followers</span><strong id="ghFollowers">—</strong></div>
+            <div class="github-stat"><span>Stars</span><strong id="ghStars">—</strong></div>
+            <div class="github-stat"><span>Forks</span><strong id="ghForks">—</strong></div>
+            <div class="github-stat"><span>Contributions</span><strong id="ghContributions">—</strong></div>
+            <div class="github-stat"><span>Current Streak</span><strong id="ghStreak">—</strong></div>
+          </div>
+          <div class="github-chart-grid">
+            <section class="github-chart-card github-snake-card">
+              <div class="github-card-head">
+                <div><strong>Contribution Snake</strong><span>Live GitHub contribution animation</span></div>
+              </div>
+              <div class="contribution-live-frame github-snake-frame">
+                <picture>
+                  <source id="snakeDarkSource" media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/vishwas0229/vishwas0229/output/github-contribution-grid-snake-dark.svg">
+                  <source id="snakeLightSource" media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/vishwas0229/vishwas0229/output/github-contribution-grid-snake.svg">
+                  <img id="snakeLiveImage" src="https://raw.githubusercontent.com/vishwas0229/vishwas0229/output/github-contribution-grid-snake.svg" alt="Live GitHub contribution snake" loading="lazy">
+                </picture>
+              </div>
+            </section>
+            <section class="github-chart-card">
+              <div class="github-card-head"><div><strong>Language Distribution</strong><span>Across public repositories</span></div></div>
+              <div id="githubLanguages" class="github-bars"></div>
+            </section>
+            <section class="github-chart-card">
+              <div class="github-card-head"><div><strong>Monthly Contributions</strong><span id="ghYearLabel">Current year</span></div></div>
+              <div id="githubMonthly" class="github-monthly"></div>
+            </section>
+          </div>
+        </section>
+        <div class="project-showcase-grid">
+          <article class="showcase-project-card">
+            <h3>DSA Problems</h3>
+            <p>C programming and Data Structures &amp; Algorithms practice covering arrays, sorting/searching, linked lists, stacks, and student records.</p>
+            <div class="showcase-links"><a href="https://github.com/vishwas0229/DSA_Problems" target="_blank" rel="noopener">GitHub Repository</a><span>Live Demo: Not available</span></div>
+          </article>
+          <article class="showcase-project-card">
+            <h3>Riya Collections</h3>
+            <p>PHP/MySQL e-commerce application with JWT authentication, Razorpay integration, admin dashboard, image management, email notifications, and order tracking.</p>
+            <div class="showcase-links"><a href="https://github.com/vishwas0229/Riya-Coliections" target="_blank" rel="noopener">GitHub Repository</a><span>Live Demo: Not available</span></div>
+          </article>
+          <article class="showcase-project-card">
+            <h3>e-Karamchari</h3>
+            <p>Employee Self-Service / HR management portal with leave management, grievances, attendance, salary slips, 2FA, reports, and chatbot features.</p>
+            <div class="showcase-links"><a href="https://github.com/vishwas0229/e-Karamchari" target="_blank" rel="noopener">GitHub Repository</a><a href="https://ekaramchari.netlify.app/" target="_blank" rel="noopener">Live Demo</a></div>
+          </article>
+          <article class="showcase-project-card">
+            <h3>Portfolio</h3>
+            <p>Interactive 3D portfolio experience with animated navigation, Simple View, project showcase, and responsive presentation.</p>
+            <div class="showcase-links"><a href="https://github.com/vishwas0229/portfolio" target="_blank" rel="noopener">GitHub Repository</a><a href="https://rahulport-folio.netlify.app/" target="_blank" rel="noopener">Live Demo</a></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="modal" id="leetcodeModal" aria-hidden="true">
+      <div class="simple-panel leetcode-panel">
+        <div class="modal-top dashboard-modal-top">
+          <div class="modal-title"><strong>LeetCode</strong><span>Live profile progress and submission activity</span></div>
+          <div class="dashboard-header-actions">
+            <button class="mini-action" id="leetcodeRefreshBtn" type="button">Refresh</button>
+            <a class="mini-action" href="https://leetcode.com/u/vishwas0229/" target="_blank" rel="noopener">Open LeetCode</a>
+            <button class="close-btn-main" id="closeLeetCodeBtn" type="button" aria-label="Close LeetCode">&times;</button>
+          </div>
+        </div>
+        <div class="leetcode-toolbar">
+          <div><strong id="leetcodeUsername">vishwas0229</strong><span id="leetcodeStatus">Loading live data…</span></div>
+          
+        </div>
+        <div class="leetcode-stats-grid">
+          <div class="leetcode-stat"><span>Total Solved</span><strong id="lcTotal">—</strong></div>
+          <div class="leetcode-stat"><span>Easy</span><strong id="lcEasy">—</strong></div>
+          <div class="leetcode-stat"><span>Medium</span><strong id="lcMedium">—</strong></div>
+          <div class="leetcode-stat"><span>Hard</span><strong id="lcHard">—</strong></div>
+          <div class="leetcode-stat"><span>Ranking</span><strong id="lcRank">—</strong></div>
+          <div class="leetcode-stat"><span>Acceptance</span><strong id="lcAcceptance">—</strong></div>
+        </div>
+        <section class="leetcode-heatmap-card lc-contrib-card">
+          <div class="leetcode-section-head"><div><strong>Submission Contribution</strong><small>Last 365 days</small></div><span id="lcHeatmapMeta">Live calendar</span></div>
+          <div class="lc-heatmap-wrap"><div class="lc-week-labels"><span>Mon</span><span>Wed</span><span>Fri</span></div><div id="leetcodeHeatmap" class="leetcode-heatmap" aria-label="LeetCode submission contribution calendar"></div></div>
+          <div class="leetcode-legend"><span>Less</span><i class="lv0"></i><i class="lv1"></i><i class="lv2"></i><i class="lv3"></i><i class="lv4"></i><span>More</span></div>
+        </section>
+
+        <div class="lc-chart-grid">
+          <section class="lc-chart-card">
+            <div class="lc-card-head"><div><strong>Question Distribution</strong><span>Problems solved by difficulty</span></div><b id="lcDonutTotal">8</b></div>
+            <div class="lc-donut-row"><div class="lc-donut" id="lcDonut"><div><strong id="lcDonutCenter">8</strong><span>Solved</span></div></div><div class="lc-donut-legend"><div><i class="easy-dot"></i><span>Easy</span><b id="lcLegendEasy">—</b></div><div><i class="medium-dot"></i><span>Medium</span><b id="lcLegendMedium">—</b></div><div><i class="hard-dot"></i><span>Hard</span><b id="lcLegendHard">—</b></div></div></div>
+          </section>
+          <section class="lc-chart-card">
+            <div class="lc-card-head"><div><strong>Difficulty Progress</strong><span>Completed vs available</span></div></div>
+            <div class="lc-progress-list">
+              <div class="lc-progress-row"><div><span>Easy</span><b id="lcEasyProgressText">—</b></div><div class="lc-progress-track"><i id="lcEasyProgress"></i></div></div>
+              <div class="lc-progress-row"><div><span>Medium</span><b id="lcMediumProgressText">—</b></div><div class="lc-progress-track"><i id="lcMediumProgress"></i></div></div>
+              <div class="lc-progress-row"><div><span>Hard</span><b id="lcHardProgressText">—</b></div><div class="lc-progress-track"><i id="lcHardProgress"></i></div></div>
+            </div>
+          </section>
+          <section class="lc-chart-card lc-month-card">
+            <div class="lc-card-head"><div><strong>Monthly Activity</strong><span>Submissions by month</span></div><b id="lcYearLabel">2026</b></div>
+            <div id="lcMonthlyChart" class="lc-monthly-chart"></div>
+          </section>
+          <section class="lc-chart-card">
+            <div class="lc-card-head"><div><strong>Activity Snapshot</strong><span>Live contribution metrics</span></div></div>
+            <div class="lc-mini-grid"><div><span>Active Days</span><b id="lcActiveDays">—</b></div><div><span>Max / Day</span><b id="lcMaxDay">—</b></div><div><span>Current Streak</span><b id="lcStreak">—</b></div><div><span>Acceptance</span><b id="lcAcceptanceMini">—</b></div></div>
+          </section>
+        </div>
+        <div class="leetcode-footer"><span id="lcUpdated">Waiting for live data…</span><span>Auto-refresh: 10 min</span></div>
+      </div>
+    </section>
+
+    <div class="game-modal" id="gameModal">
+      <div class="game-box">
+        <div class="close-btn" onclick="closeGame()">&times;</div>
+        <div class="game-title">Tic-Tac-Toe</div>
+        <div class="game-hud">
+          <span>You: X</span>
+          <select id="difficulty" class="select">
+            <option value="easy">Easy</option>
+            <option value="hard">Hard</option>
+          </select>
+        </div>
+        <div class="board" id="board"></div>
+        <div class="bottom-controls">
+          <button class="btn" onclick="resetGame()">Restart</button>
+        </div>
+        <div id="winPopup"></div>
+      </div>
+    </div>
+
+    <div class="transition-shade" id="transitionShade"></div>
+    <div class="floating-toast" id="toast" role="status" aria-live="polite"></div>
+    <div class="mobile-warning" aria-hidden="true"></div>
+  </div>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="./assets/js/app.js"></script>
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"7939e04a4baf43c8b86a560f74aac60e","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"4a4b658285de48d48c272804f9894927","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+</html>
