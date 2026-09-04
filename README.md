@@ -91,13 +91,12 @@ If you like this project, consider giving it a ⭐ on GitHub!
 
 - Goal: App Development
 - GitHub: https://github.com/vishwas0229
-- Projects: DSA_Problems, Riya-Coliections, e-Karamchari
+- Projects: DSA_Problems, e-Karamchari
 - Focus: C/C++, Python, React Native, PHP, JavaScript, MySQL, Cyber Security, AI/ML
 
 
 ## Projects
 
 - [DSA Problems](https://github.com/vishwas0229/DSA_Problems)
-- [Riya Collections](https://github.com/vishwas0229/Riya-Coliections)
 - [e-Karamchari](https://github.com/vishwas0229/e-Karamchari) — [Live Demo](https://ekaramchari.netlify.app/)
 - [Portfolio](https://github.com/vishwas0229/portfolio) — [Live Demo](https://rahulport-folio.netlify.app/)
