@@ -40,7 +40,7 @@ exports.handler = async (event) => {
       fetchJson(`https://github-contributions-api.jogruber.de/v4/${encodeURIComponent(username)}?y=last`)
     ]);
 
-    const publicRepos = Array.isArray(repos) ? repos.filter(r => !r.fork) : [];
+    const publicRepos = Array.isArray(repos) ? repos.filter(r => !r.fork && Number(r.id) !== 1146497917) : [];
     const languageTotals = {};
     let totalStars = 0;
     let totalForks = 0;
