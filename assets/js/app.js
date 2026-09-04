@@ -3876,8 +3876,8 @@ window.addEventListener("error", function (event) {
       });
 
       function animate() {
-        const elapsed = clock.getElapsedTime();
         const delta = clock.getDelta();
+        const elapsed = clock.elapsedTime;
 
         const labelsHidden = !!(appRoot && appRoot.classList.contains("ui-labels-hidden"));
         const fxBoost = labelsHidden ? 1.35 : 1.0;
